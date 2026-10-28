@@ -10,6 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Papiertiger-Code finden
+        run: |
+          for z in *.zip; do [ -f "$z" ] && unzip -o -q "$z" -d entpackt; done
+          datei=$(find . -path '*lib/screens/home_screen.dart' | head -1)
+          if [ -z "$datei" ]; then
+            echo "FEHLER: Papiertiger-Code nicht gefunden. Bitte papiertiger-schritt1.zip hochladen."
+            exit 1
+          fi
+          ordner=$(dirname "$(dirname "$(dirname "$datei")")")
+          if [ "$ordner" != "." ]; then cp -r "$ordner"/. .; fi
+          echo "Code gefunden in: $ordner"
+
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
