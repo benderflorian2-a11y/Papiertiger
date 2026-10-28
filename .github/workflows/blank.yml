@@ -20,7 +20,7 @@ jobs:
           channel: stable
 
       - name: Android- und iPhone-Dateien erzeugen
-        run: flutter create --org de.papiertiger --platforms android,ios .
+        run: flutter create --project-name papiertiger --org de.papiertiger --platforms android,ios .
 
       - run: flutter pub get
 
